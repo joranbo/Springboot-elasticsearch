@@ -1,0 +1,40 @@
+spring:
+  elasticsearch:
+    rest:      uris: 192.168.10.128:8080   #es 7 不推荐使用TransportClient， 将在es8删除， 推荐使用  REST Client
+      connection-timeout: 5
+    
+      
+      
+      
+  freemarker:
+    # 设置模板后缀名
+    suffix: .ftl
+    # 设置文档类型
+    content-type: text/html
+    # 设置页面编码格式
+    charset: UTF-8
+    # 设置页面缓存
+    cache: false
+    # 设置ftl文件路径
+    template-loader-path:
+      - classpath:/templates
+  # 设置静态文件路径，js,css等
+  mvc:
+    static-path-pattern: /static/**
+ 
+ 
+server:  port: 80  
+  # Undertow 日志存放目录
+  undertow:    accesslog:      dir:      enabled: false  # 是否启动日志
+      pattern: common  # 日志格式
+      prefix: access_log # 日志文件名前缀
+      suffix: log # 日志文件名后缀
+    max-http-post-size: 0 # HTTP POST请求最大的大小
+    io-threads:  4 # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+    worker-threads: 20 # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+    buffer-size: 1024 # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理, 每块buffer的空间大小,越小的空间被利用越充分
+    buffers-per-region: 1024  # 每个区分配的buffer数量 , 所以pool的大小是buffer-size * buffers-per-region
+    direct-buffers: true # 是否分配的直接内存
+
+
+
